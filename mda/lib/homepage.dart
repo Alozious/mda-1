@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mda/drawer.dart';
+import 'package:mda/results.dart';
 
 void main(List<String> args) {
   runApp(HomePage());
@@ -13,11 +15,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  static const int pink = 0xFFeb406a;
   double xOffset = 0;
   double yOffset = 0;
   double scaleFactor = 1;
   bool drawerOpen = false;
   double radius = 0;
+  bool isHome = true;
+  Color? activeColor = Colors.white;
+  Color? inactiveColor = Colors.black;
 
   @override
   Widget build(BuildContext context) {
@@ -45,20 +51,33 @@ class _HomePageState extends State<HomePage> {
             borderRadius: BorderRadius.circular(radius),
             child: Scaffold(
               appBar: AppBar(
-                backgroundColor: const Color(0xFFeb406a),
+                backgroundColor: const Color(pink),
                 title: const Text("Malnutrition Digital Assistant"),
-                leading: IconButton(
-                  icon: const Icon(Icons.menu),
-                  onPressed: () {
-                    drawerOpen = true;
-                    setState(() {
-                      xOffset = 210;
-                      yOffset = 180;
-                      scaleFactor = 0.65;
-                      radius = 60;
-                    });
-                  },
-                ),
+                leading: drawerOpen
+                    ? IconButton(
+                        icon: const Icon(FontAwesomeIcons.chevronLeft),
+                        onPressed: () {
+                          drawerOpen = false;
+                          setState(() {
+                            xOffset = 0;
+                            yOffset = 0;
+                            scaleFactor = 1;
+                            radius = 0;
+                          });
+                        },
+                      )
+                    : IconButton(
+                        icon: const Icon(Icons.menu),
+                        onPressed: () {
+                          drawerOpen = true;
+                          setState(() {
+                            xOffset = 210;
+                            yOffset = 180;
+                            scaleFactor = 0.65;
+                            radius = 60;
+                          });
+                        },
+                      ),
                 actions: const [
                   Icon(Icons.more_vert_rounded),
                   SizedBox(
@@ -66,9 +85,90 @@ class _HomePageState extends State<HomePage> {
                   )
                 ],
               ),
-              body: const Center(
-                child: Text("HOMEPAGE"),
+              body: isHome
+                  ? const Center(
+                      child: Text("HOMEPAGE"),
+                    )
+                  : const Results(),
+
+              // BOTTOM NAVIGATION BAR
+              bottomNavigationBar: BottomAppBar(
+                shape: const CircularNotchedRectangle(),
+                notchMargin: 6,
+                color: const Color(pink),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4.2),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      // HOME BUTTON
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            isHome = true;
+                          });
+                        },
+                        child: Row(
+                          children: [
+                            IconButton(
+                                color: isHome ? activeColor : inactiveColor,
+                                tooltip: "Homepage",
+                                onPressed: () {
+                                  setState(() {
+                                    isHome = true;
+                                  });
+                                },
+                                icon: const Icon(FontAwesomeIcons.home)),
+                            Text(
+                              "HOME",
+                              style: TextStyle(
+                                  color: isHome ? activeColor : inactiveColor),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      // RESULTS BUTTON
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            isHome = false;
+                          });
+                        },
+                        child: Row(
+                          children: [
+                            IconButton(
+                                color: isHome ? inactiveColor : activeColor,
+                                tooltip: "Results",
+                                onPressed: () {
+                                  setState(() {
+                                    isHome = false;
+                                  });
+                                },
+                                icon: const Icon(FontAwesomeIcons.bars)),
+                            Text(
+                              "RESULTS",
+                              style: TextStyle(
+                                  color: isHome ? inactiveColor : activeColor),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
+
+              // CAMERA FLOATING ACTION BUTTON
+              floatingActionButton: FloatingActionButton(
+                backgroundColor: Colors.black,
+                onPressed: () {},
+                child: const Icon(FontAwesomeIcons.camera),
+              ),
+
+              // FLOATING ACTION BUTTON LOCATION
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.centerDocked,
             ),
           )),
     );

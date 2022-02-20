@@ -15,16 +15,16 @@ class _DrawerScreenState extends State<DrawerScreen> {
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(left: 6),
-        color: Color(0xFF09f0dd),
+        color: const Color(0xFF09f0dd),
         child: Center(
           child: ListView(
             children: [
               Container(
-                margin: const EdgeInsets.only(top: 12, left: 15),
+                margin: const EdgeInsets.only(top: 15, left: 15),
                 child: const Text(
                   "MDA",
                   style: TextStyle(
-                    fontFamily: "Times New Roman",
+                    fontFamily: "Tesla",
                     fontSize: 50,
                     color: Color(0xFFeb406a),
                     fontWeight: FontWeight.bold,
@@ -133,7 +133,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.pushNamed(context, "about");
+                  Navigator.pushNamed(context, "terms");
                 },
               ),
 
