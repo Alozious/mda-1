@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mda/drawer.dart';
 import 'package:mda/results.dart';
 
@@ -24,6 +25,8 @@ class _HomePageState extends State<HomePage> {
   bool isHome = true;
   Color? activeColor = Colors.white;
   Color? inactiveColor = Colors.black;
+  final ImagePicker _picker = ImagePicker();
+  late String pickedImagePath;
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +92,9 @@ class _HomePageState extends State<HomePage> {
                   ? const Center(
                       child: Text("HOMEPAGE"),
                     )
-                  : const Results(),
+                  : Results(
+                      imgPath: pickedImagePath,
+                    ),
 
               // BOTTOM NAVIGATION BAR
               bottomNavigationBar: BottomAppBar(
@@ -162,7 +167,18 @@ class _HomePageState extends State<HomePage> {
               // CAMERA FLOATING ACTION BUTTON
               floatingActionButton: FloatingActionButton(
                 backgroundColor: Colors.black,
-                onPressed: () {},
+                onPressed: () async {
+                  final XFile? image =
+                      await _picker.pickImage(source: ImageSource.gallery);
+
+                  // printing the image path
+                  print(image!.path);
+
+                  setState(() {
+                    pickedImagePath = image.path;
+                    isHome = false;
+                  });
+                },
                 child: const Icon(FontAwesomeIcons.camera),
               ),
 

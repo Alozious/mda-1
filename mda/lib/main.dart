@@ -5,7 +5,7 @@ import 'package:mda/terms.dart';
 import 'drawer.dart';
 
 void main(List<String> args) {
-  runApp(MainApp());
+  runApp(const MainApp());
 }
 
 class MainApp extends StatefulWidget {
