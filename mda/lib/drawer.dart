@@ -15,7 +15,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(left: 6),
-        color: const Color(0xFF09f0dd),
+        color: Colors.white,
         child: Center(
           child: ListView(
             children: [

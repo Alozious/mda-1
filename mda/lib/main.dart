@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mda/homepage.dart';
 import 'package:mda/terms.dart';
-
 import 'drawer.dart';
 
 void main(List<String> args) {
