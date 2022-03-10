@@ -7,7 +7,7 @@ void main(List<String> args) {
   runApp(const MainApp());
 }
 
-// aziz comments
+// aloyzious comments
 class MainApp extends StatefulWidget {
   const MainApp({Key? key}) : super(key: key);
 
