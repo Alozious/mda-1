@@ -15,7 +15,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(left: 6),
-        color: Colors.white,
+        color: Color.fromARGB(255, 178, 232, 240),
         child: Center(
           child: ListView(
             children: [
@@ -45,7 +45,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 height: 90,
               ),
               ListTile(
-                selectedTileColor: Colors.black,
                 leading: const Icon(
                   FontAwesomeIcons.home,
                   size: 30,
@@ -58,7 +57,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       fontWeight: FontWeight.w900,
                       letterSpacing: 1.5,
                     )),
-                onTap: () {},
+                onTap: () {
+                  print("THE HOME BUTTON HAS BEEN CLICKED");
+                },
               ),
 
               // INFO TILE

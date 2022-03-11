@@ -4,10 +4,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mda/drawer.dart';
 import 'package:mda/results.dart';
 
-void main(List<String> args) {
-  runApp(HomePage());
-}
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -26,10 +22,76 @@ class _HomePageState extends State<HomePage> {
   Color? activeColor = Colors.white;
   Color? inactiveColor = Colors.black;
   final ImagePicker _picker = ImagePicker();
-  late String pickedImagePath;
+  String pickedImagePath = "";
+  bool imagePicked = false;
+
+  _popupDialog(BuildContext context) {
+    return AlertDialog(
+        title: const Text(
+          "SELECT IMAGE SOURCE",
+          style: TextStyle(fontSize: 19),
+        ),
+        content: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // PICKING IMAGE FROM CAMERA
+            ListTile(
+              title: const Text("Pick From Camera"),
+              leading: const Icon(
+                FontAwesomeIcons.camera,
+                color: Colors.pink,
+              ),
+              onTap: () async {
+                final XFile? image =
+                    await _picker.pickImage(source: ImageSource.camera);
+                // printing the image path
+                print(image!.path);
+                setState(() {
+                  pickedImagePath = image.path;
+                  isHome = false;
+                });
+                Navigator.pop(context);
+
+              },
+            ),
+
+            // PICKING IMAGE FROM GALLERY
+            ListTile(
+              title: const Text("Pick From Gallery"),
+              leading: const Icon(
+                FontAwesomeIcons.image,
+                color: Colors.pink,
+              ),
+              onTap: () async {
+                final XFile? image =
+                    await _picker.pickImage(source: ImageSource.gallery);
+                // printing the image path
+                print(image!.path);
+                setState(() {
+                  pickedImagePath = image.path;
+                  isHome = false;
+                });
+               Navigator.pop(context);
+
+              },
+            ),
+          ],
+        ));
+
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (pickedImagePath == "") {
+      setState(() {
+        imagePicked = false;
+      });
+    } else {
+      setState(() {
+        imagePicked = true;
+      });
+    }
     return GestureDetector(
       onTap: drawerOpen
           ? () {
@@ -168,16 +230,9 @@ class _HomePageState extends State<HomePage> {
               floatingActionButton: FloatingActionButton(
                 backgroundColor: Colors.black,
                 onPressed: () async {
-                  final XFile? image =
-                      await _picker.pickImage(source: ImageSource.gallery);
-
-                  // printing the image path
-                  print(image!.path);
-
-                  setState(() {
-                    pickedImagePath = image.path;
-                    isHome = false;
-                  });
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) => _popupDialog(context));
                 },
                 child: const Icon(FontAwesomeIcons.camera),
               ),
