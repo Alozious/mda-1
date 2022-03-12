@@ -50,9 +50,10 @@ class _HomePageState extends State<HomePage> {
                 setState(() {
                   pickedImagePath = image.path;
                   isHome = false;
+                  imagePicked = true;
                 });
-                Navigator.pop(context);
 
+                Navigator.pop(context);
               },
             ),
 
@@ -71,14 +72,13 @@ class _HomePageState extends State<HomePage> {
                 setState(() {
                   pickedImagePath = image.path;
                   isHome = false;
+                  imagePicked = true;
                 });
-               Navigator.pop(context);
-
+                Navigator.pop(context);
               },
             ),
           ],
         ));
-
   }
 
   @override
@@ -154,9 +154,33 @@ class _HomePageState extends State<HomePage> {
                   ? const Center(
                       child: Text("HOMEPAGE"),
                     )
-                  : Results(
-                      imgPath: pickedImagePath,
-                    ),
+                  : imagePicked
+                      ? Results(
+                          imgPath: pickedImagePath,
+                        )
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Center(
+                              child: Text(
+                                "NO IMAGE SELECTED",
+                                style: TextStyle(fontSize: 22),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 40,
+                            ),
+                            Center(
+                              child: Text(
+                                "Click Button Below To Select An Image",
+                                style: TextStyle(fontSize: 17),
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            Icon(FontAwesomeIcons.arrowDown),
+                            Icon(FontAwesomeIcons.arrowDown),
+                          ],
+                        ),
 
               // BOTTOM NAVIGATION BAR
               bottomNavigationBar: BottomAppBar(

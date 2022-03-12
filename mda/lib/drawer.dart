@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mda/homepage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 
 class DrawerScreen extends StatefulWidget {
   const DrawerScreen({Key? key}) : super(key: key);
@@ -10,6 +12,10 @@ class DrawerScreen extends StatefulWidget {
 }
 
 class _DrawerScreenState extends State<DrawerScreen> {
+  shareTheApp() async {
+    await Share.share("Malnutrition Digital Assistant");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -153,7 +159,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.pushNamed(context, "share");
+                  shareTheApp();
                 },
               ),
 

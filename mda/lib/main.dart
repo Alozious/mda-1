@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mda/homepage.dart';
 import 'package:mda/terms.dart';
+import 'package:mda/tip.dart';
 import 'drawer.dart';
 
 void main(List<String> args) {
@@ -24,6 +25,7 @@ class _MainAppState extends State<MainApp> {
         "drawer": (context) => const DrawerScreen(),
         "home": (context) => const HomePage(),
         "terms": (context) => const Terms(),
+        "tip": (context) => const Tip(),
       },
       home: Stack(
         children: const [
