@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mda/faqspage.dart';
 import 'package:mda/homepage.dart';
 import 'package:mda/terms.dart';
 import 'drawer.dart';
@@ -24,6 +25,9 @@ class _MainAppState extends State<MainApp> {
         "drawer": (context) => const DrawerScreen(),
         "home": (context) => const HomePage(),
         "terms": (context) => const Terms(),
+        "faqspage": (context) => const Faq(),
+        
+
       },
       home: Stack(
         children: const [
