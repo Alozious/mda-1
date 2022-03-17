@@ -3,8 +3,10 @@ import 'package:mda/homepage.dart';
 import 'package:mda/terms.dart';
 import 'package:mda/tip.dart';
 import 'drawer.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main(List<String> args) {
+Future<void> main(List<String> args) async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MainApp());
 }
 
@@ -17,6 +19,10 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
+
+  // Initializing Firebase App
+  final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

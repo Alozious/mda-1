@@ -11,13 +11,28 @@ class Tip extends StatefulWidget {
 
 class _TipState extends State<Tip> {
   static const int pink = 0xFFeb406a;
-  var date;
+  var date = "";
+
+  var days = {
+    '1': 'Monday',
+    '2': 'Tuesday',
+    '3': 'Wednesday',
+    '4': 'Thursday',
+    '5': 'Friday',
+    '6': 'Saturday',
+    '7': 'Sunday'
+  };
+
+  var weekDay;
 
   @override
   void initState() {
     var now = DateTime.now();
     date = now.toString().substring(0, 10);
-    print(date);
+    // print(date);
+    var day = now.weekday.toString();
+    weekDay = days[day];
+    print(weekDay);
   }
 
   @override
@@ -27,12 +42,12 @@ class _TipState extends State<Tip> {
       appBar: AppBar(
         title: const Text(
           "TIP OF THE DAY",
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
         ),
         backgroundColor: const Color(pink),
         centerTitle: true,
         elevation: 0,
-        toolbarHeight: 65,
+        toolbarHeight: 68,
       ),
       body: Container(
           decoration: const BoxDecoration(
@@ -52,7 +67,7 @@ class _TipState extends State<Tip> {
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(30),
                                 bottomRight: Radius.circular(30)),
-                            color: Colors.cyan,
+                            color: Color.fromARGB(255, 154, 236, 247),
                           ),
                           height: 450,
                           width: 50,
@@ -62,7 +77,7 @@ class _TipState extends State<Tip> {
                           padding: const EdgeInsets.all(30.0),
                           child: Container(
                             decoration: BoxDecoration(
-                                color: Colors.cyan,
+                                color: const Color.fromARGB(255, 196, 228, 233),
                                 borderRadius: BorderRadius.circular(40)),
                             height: 450,
                             width: 250,
@@ -75,11 +90,13 @@ class _TipState extends State<Tip> {
                                 children: [
                                   // TIP OF THE DAY TEXT
                                   const Text(
-                                    "# FACT",
+                                    "# Did You Know?",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 40,
-                                        fontWeight: FontWeight.bold),
+                                      fontSize: 38,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.pink,
+                                    ),
                                   ),
                                   const SizedBox(
                                     height: 30,
@@ -108,7 +125,7 @@ class _TipState extends State<Tip> {
                                       // backgroundColor: ,
                                       onPressed: () async {
                                         await Share.share(
-                                            "One in Four of the World’s Children is Stunted.");
+                                            "1 in 4 of the World’s Children is Stunted.");
                                       },
                                       child: Row(
                                         mainAxisAlignment:
@@ -129,7 +146,7 @@ class _TipState extends State<Tip> {
                         ),
                         Container(
                           decoration: const BoxDecoration(
-                              color: Colors.cyan,
+                              color: Color.fromARGB(255, 154, 236, 247),
                               borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(30),
                                 topLeft: Radius.circular(30),
@@ -146,10 +163,25 @@ class _TipState extends State<Tip> {
               ),
 
               // Displaying the current date at the bottom
-              Text(
-                date,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    weekDay,
+                    style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.pink),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    date,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 22),
+                  ),
+                ],
               ),
             ],
           )),
