@@ -1,9 +1,15 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class Tip extends StatefulWidget {
-  const Tip({Key? key}) : super(key: key);
+  int randIndex;
+
+  Tip({Key? key, required this.randIndex}) : super(key: key);
 
   @override
   State<Tip> createState() => _TipState();
@@ -29,7 +35,7 @@ class _TipState extends State<Tip> {
   void initState() {
     var now = DateTime.now();
     date = now.toString().substring(0, 10);
-    // print(date);
+// print(date);
     var day = now.weekday.toString();
     weekDay = days[day];
     print(weekDay);
@@ -84,9 +90,9 @@ class _TipState extends State<Tip> {
                             child: Center(
                                 child: Padding(
                               padding: const EdgeInsets.symmetric(
-                                  vertical: 20, horizontal: 30),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                  vertical: 20, horizontal: 10),
+                              child: ListView(
+                                // mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   // TIP OF THE DAY TEXT
                                   const Text(
@@ -101,44 +107,75 @@ class _TipState extends State<Tip> {
                                   const SizedBox(
                                     height: 30,
                                   ),
-                                  const Text(
-                                    "One in Four of the World’s Children is Stunted.",
-                                    style: TextStyle(
-                                      fontSize: 30,
-                                    ),
-                                    textAlign: TextAlign.center,
+                                  StreamBuilder<QuerySnapshot>(
+                                    stream: FirebaseFirestore.instance
+                                        .collection("tips")
+                                        .snapshots(),
+                                    builder: (context, snapshot) {
+                                      // Checking if data has been returned from the database
+                                      if (snapshot.hasData) {
+                                        Future.delayed(
+                                            const Duration(days: 1), () {
+                                          setState(() {
+                                            widget.randIndex = Random()
+                                                .nextInt(snapshot.data!.size);
+                                          });
+                                          print(widget.randIndex);
+                                        });
+
+                                        return Text(
+                                          snapshot.data!.docs[widget.randIndex]["tip"],
+                                          style: const TextStyle(
+                                            fontSize: 26,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        );
+                                      } else if (snapshot.hasError) {
+                                        return const Text(
+                                            "Error Processing File");
+                                      } else {
+                                        return const Text(
+                                            'Loading Please wait');
+                                      }
+                                    },
                                   ),
+
                                   const SizedBox(
                                     height: 50,
                                   ),
 
                                   // SHARE BUTTON
-                                  ElevatedButton(
-                                      style: ButtonStyle(
-                                        padding: MaterialStateProperty.all(
-                                            const EdgeInsets.symmetric(
-                                                horizontal: 20, vertical: 10)),
-                                        backgroundColor:
-                                            MaterialStateProperty.all(
-                                                Colors.pink),
-                                      ),
-                                      // backgroundColor: ,
-                                      onPressed: () async {
-                                        await Share.share(
-                                            "1 in 4 of the World’s Children is Stunted.");
-                                      },
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: const [
-                                          Text("Share"),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Icon(FontAwesomeIcons.shareAlt),
-                                        ],
-                                      ))
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 28),
+                                    child: ElevatedButton(
+                                        style: ButtonStyle(
+                                          padding: MaterialStateProperty.all(
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: 20,
+                                                  vertical: 10)),
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.pink),
+                                        ),
+                                        // backgroundColor: ,
+                                        onPressed: () async {
+                                          await Share.share(
+                                              "1 in 4 of the World’s Children is Stunted.");
+                                        },
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: const [
+                                            Text("Share"),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Icon(FontAwesomeIcons.shareAlt),
+                                          ],
+                                        )),
+                                  )
                                 ],
                               ),
                             )),

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:mda/homepage.dart';
 import 'package:mda/terms.dart';
@@ -19,9 +21,10 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-
   // Initializing Firebase App
   final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
+  var randIndex = Random().nextInt(5);
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class _MainAppState extends State<MainApp> {
         "drawer": (context) => const DrawerScreen(),
         "home": (context) => const HomePage(),
         "terms": (context) => const Terms(),
-        "tip": (context) => const Tip(),
+        "tip": (context) => Tip(randIndex: randIndex,),
       },
       home: Stack(
         children: const [
