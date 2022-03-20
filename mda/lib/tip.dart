@@ -16,6 +16,8 @@ class Tip extends StatefulWidget {
 }
 
 class _TipState extends State<Tip> {
+  String textShared = "Malnutrition Digital Assitant";
+
   static const int pink = 0xFFeb406a;
   var date = "";
 
@@ -112,10 +114,15 @@ class _TipState extends State<Tip> {
                                         .collection("tips")
                                         .snapshots(),
                                     builder: (context, snapshot) {
+                                      Future.delayed(Duration.zero, (() {
+                                        setState(() {
+                                          textShared = snapshot.data!.docs[widget.randIndex]["tip"];
+                                        });
+                                      }));
                                       // Checking if data has been returned from the database
                                       if (snapshot.hasData) {
-                                        Future.delayed(
-                                            const Duration(days: 1), () {
+                                        Future.delayed(const Duration(days: 1),
+                                            () {
                                           setState(() {
                                             widget.randIndex = Random()
                                                 .nextInt(snapshot.data!.size);
@@ -124,7 +131,8 @@ class _TipState extends State<Tip> {
                                         });
 
                                         return Text(
-                                          snapshot.data!.docs[widget.randIndex]["tip"],
+                                          snapshot.data!.docs[widget.randIndex]
+                                              ["tip"],
                                           style: const TextStyle(
                                             fontSize: 26,
                                           ),
@@ -160,8 +168,7 @@ class _TipState extends State<Tip> {
                                         ),
                                         // backgroundColor: ,
                                         onPressed: () async {
-                                          await Share.share(
-                                              "1 in 4 of the World’s Children is Stunted.");
+                                          await Share.share(textShared);
                                         },
                                         child: Row(
                                           mainAxisAlignment:

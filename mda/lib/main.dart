@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:mda/contact.dart';
 import 'package:mda/faqspage.dart';
 import 'package:mda/homepage.dart';
 import 'package:mda/terms.dart';
@@ -36,6 +37,7 @@ class _MainAppState extends State<MainApp> {
         "terms": (context) => const Terms(),
         "tip": (context) => Tip(randIndex: randIndex),
         "faqspage": (context) => const Faq(),
+        "contact": (context) => const Contact(),
       },
       home: Stack(
         children: const [

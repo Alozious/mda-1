@@ -140,7 +140,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.pushNamed(context, "terms");
+                  Navigator.pushNamed(context, "contact");
                 },
               ),
 
