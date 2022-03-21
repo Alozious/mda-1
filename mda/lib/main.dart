@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mda/faqspage.dart';
+import 'package:mda/foodfacts.dart';
 import 'package:mda/homepage.dart';
 import 'package:mda/terms.dart';
 import 'package:mda/tip.dart';
@@ -32,13 +33,10 @@ class _MainAppState extends State<MainApp> {
         "drawer": (context) => const DrawerScreen(),
         "home": (context) => const HomePage(),
         "terms": (context) => const Terms(),
-<<<<<<< HEAD
         "faqspage": (context) => const Faq(),
-        
+        "foodfacts": (context) => const Homepagee(),
 
-=======
         "tip": (context) => const Tip(),
->>>>>>> 48e6e0b4b1f6c00e77d4bf51e012f9a7db44545a
       },
       home: Stack(
         children: const [
