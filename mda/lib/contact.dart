@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -9,6 +10,8 @@ class Contact extends StatefulWidget {
 }
 
 class _ContactState extends State<Contact> {
+  static const int pink = 0xFFeb406a;
+
   final TextEditingController _fullname = TextEditingController();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _message = TextEditingController();
@@ -18,21 +21,59 @@ class _ContactState extends State<Contact> {
   String userMessage = "";
   String userFullName = "";
 
+// DISPLAYING A POP ON SUCCESFULLY SENDING MESSAGE
+  _displayDialog(BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Row(
+            children: const [
+              Icon(
+                FontAwesomeIcons.checkCircle,
+                color: Colors.green,
+              ),
+              SizedBox(width: 16),
+              Text('SUCCESS'),
+            ],
+          ),
+          content: const Text('MESSAGE SENT SUCCESFULLY'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("OK"),
+            )
+          ],
+        );
+      },
+    );
+  }
+
 // Function to send the message to cloud firestore
-  void sendMessage() {
-    print(userEmail);
-    print(userMessage);
-    print(userFullName);
+  void sendMessage() async {
+    var fbCollection = FirebaseFirestore.instance.collection("messages");
+
+    var result = await fbCollection.add({
+      'message': userMessage,
+      'email': userEmail,
+      'fullname': userFullName
+    }).then((value) => _displayDialog(context));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomPadding: false,
       appBar: AppBar(
-          backgroundColor: Colors.pink,
+          backgroundColor: const Color.fromARGB(244, 247, 61, 108),
           elevation: 0,
-          title: const Text("Contact Us"),
+          title: const Text(
+            "Contact Us",
+            style: TextStyle(fontSize: 22),
+          ),
           actions: const [
             Padding(
               padding: EdgeInsets.only(right: 20),
@@ -40,131 +81,134 @@ class _ContactState extends State<Contact> {
             ),
           ]),
       body: Container(
-        color: Color.fromARGB(17, 15, 197, 243),
+        color: const Color.fromARGB(17, 15, 197, 243),
         height: double.infinity,
         child:
             Stack(fit: StackFit.loose, clipBehavior: Clip.antiAlias, children: [
-          ListView(
-            children: [
-              Container(
-                  child: ListView(
-                    children: [
-                      Image.asset(
-                        "assets/images/imageedit_3_2060554745.png",
-                        height: 220,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(20)),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(10.0),
-                                        child: Icon(FontAwesomeIcons.envelope),
-                                      )),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 15),
+          Container(
+            child: ListView(
+              children: [
+                Container(
+                    child: ListView(
+                      children: [
+                        Image.asset(
+                          "assets/images/imageedit_3_2060554745.png",
+                          height: 220,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
+                                        child: const Padding(
+                                          padding: EdgeInsets.all(10.0),
+                                          child:
+                                              Icon(FontAwesomeIcons.envelope),
+                                        )),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 15),
 
-                                    // Email Column
-                                    child: Column(
-                                      children: const [
-                                        Padding(
-                                          padding: EdgeInsets.only(bottom: 5),
-                                          child: Text(
-                                            "Email",
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18,
+                                      // Email Column
+                                      child: Column(
+                                        children: const [
+                                          Padding(
+                                            padding: EdgeInsets.only(bottom: 5),
+                                            child: Text(
+                                              "Email",
+                                              textAlign: TextAlign.left,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Text(
-                                          "info@mdaapp.com",
-                                          style: TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 245, 240, 240),
-                                              fontSize: 14),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-
-                          // Phone Column
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                      decoration: const BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20))),
-
-                                      // Phone Icon
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(10.0),
-                                        child: Icon(FontAwesomeIcons.phone),
-                                      )),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 15),
-                                    child: Column(
-                                      children: const [
-                                        Padding(
-                                          padding: EdgeInsets.only(bottom: 7),
-                                          child: Text(
-                                            "Phone",
+                                          Text(
+                                            "info@mdaapp.com",
                                             style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 17,
-                                                color: Colors.white),
+                                                color: Color.fromARGB(
+                                                    255, 245, 240, 240),
+                                                fontSize: 14),
                                           ),
-                                        ),
-                                        Text(
-                                          "+256777777777",
-                                          style: TextStyle(
-                                              color: Color.fromARGB(
-                                                  239, 255, 255, 255)),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                    ],
-                  ),
-                  height: 380,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(24),
-                        bottomRight: Radius.circular(24)),
-                    color: Colors.pink,
-                  )),
-            ],
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+
+                            // Phone Column
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                        decoration: const BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20))),
+
+                                        // Phone Icon
+                                        child: const Padding(
+                                          padding: EdgeInsets.all(10.0),
+                                          child: Icon(FontAwesomeIcons.phone),
+                                        )),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 15),
+                                      child: Column(
+                                        children: const [
+                                          Padding(
+                                            padding: EdgeInsets.only(bottom: 7),
+                                            child: Text(
+                                              "Phone",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 17,
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                          Text(
+                                            "+256777777777",
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    239, 255, 255, 255)),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                    ),
+                    height: 380,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(24),
+                          bottomRight: Radius.circular(24)),
+                      color: Color.fromARGB(244, 247, 61, 108),
+                    )),
+              ],
+            ),
           ),
 
           // FORM TO CAPTURE THE RESPONSE
           Positioned(
-            top: 300,
+            bottom: 25,
             left: 35,
             right: 35,
             child: Container(
@@ -213,7 +257,7 @@ class _ContactState extends State<Contact> {
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: TextFormField(
                           controller: _message,
-                          keyboardType: TextInputType.name,
+                          keyboardType: TextInputType.text,
                           maxLines: 2,
                           decoration:
                               const InputDecoration(label: Text("Message")),
