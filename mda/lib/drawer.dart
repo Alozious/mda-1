@@ -75,7 +75,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   color: Colors.black,
                 ),
                 title: const Text(
-                  "Info",
+                  "Food Facts",
                   style: TextStyle(
                     fontSize: 19,
                     color: Colors.black,
@@ -139,7 +139,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.pushNamed(context, "terms");
+                  Navigator.pushNamed(context, "contact");
                 },
               ),
 

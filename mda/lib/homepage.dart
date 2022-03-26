@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mda/drawer.dart';
+import 'package:mda/home.dart';
 import 'package:mda/results.dart';
 
 class HomePage extends StatefulWidget {
@@ -114,7 +116,9 @@ class _HomePageState extends State<HomePage> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(radius),
             child: Scaffold(
+              // APPBAR
               appBar: AppBar(
+                elevation: 0,
                 backgroundColor: const Color(pink),
                 title: const Text("Malnutrition Digital Assistant"),
                 leading: drawerOpen
@@ -150,9 +154,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               body: isHome
-                  ? const Center(
-                      child: Text("HOMEPAGE"),
-                    )
+                  ? const Home()
                   : imagePicked
                       ? Results(
                           imgPath: pickedImagePath,
@@ -235,7 +237,7 @@ class _HomePageState extends State<HomePage> {
                                     isHome = false;
                                   });
                                 },
-                                icon: const Icon(FontAwesomeIcons.bars)),
+                                icon: const Icon(FontAwesomeIcons.binoculars)),
                             Text(
                               "RESULTS",
                               style: TextStyle(

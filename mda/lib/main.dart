@@ -1,9 +1,15 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:mda/another.dart';
+import 'package:mda/contact.dart';
 import 'package:mda/faqspage.dart';
 import 'package:mda/foodfacts.dart';
+import 'package:mda/fruitspage.dart';
 import 'package:mda/homepage.dart';
 import 'package:mda/terms.dart';
 import 'package:mda/tip.dart';
+import 'package:mda/vegetablespage.dart';
 import 'drawer.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -21,9 +27,9 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-
   // Initializing Firebase App
   final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
+  var randIndex = Random().nextInt(5);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +42,14 @@ class _MainAppState extends State<MainApp> {
         "faqspage": (context) => const Faq(),
         "foodfacts": (context) => const Homepagee(),
 
-        "tip": (context) => const Tip(),
+    
+        "tip": (context) => Tip(randIndex: randIndex),
+        "contact": (context) => const Contact(),
+
+//foodfact routes
+         "vegetablespage": (context) => const Vegetablesinfo(),
+         "fruitspage": (context) => const Fruitsinfo(),
+
       },
       home: Stack(
         children: const [
