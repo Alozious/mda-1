@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:mda/another.dart';
 import 'package:mda/contact.dart';
 import 'package:mda/faqspage.dart';
+import 'package:mda/foodfacts.dart';
+import 'package:mda/fruitspage.dart';
 import 'package:mda/homepage.dart';
 import 'package:mda/terms.dart';
 import 'package:mda/tip.dart';
+import 'package:mda/vegetablespage.dart';
 import 'drawer.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -36,9 +39,17 @@ class _MainAppState extends State<MainApp> {
         "drawer": (context) => const DrawerScreen(),
         "home": (context) => const HomePage(),
         "terms": (context) => const Terms(),
-        "tip": (context) => Tip(randIndex: randIndex),
         "faqspage": (context) => const Faq(),
+        "foodfacts": (context) => const Foodfactspage(),
+
+    
+        "tip": (context) => Tip(randIndex: randIndex),
         "contact": (context) => const Contact(),
+
+//foodfact routes
+         "vegetablespage": (context) => const Vegetablesinfo(),
+         "fruitspage": (context) => const Fruitsinfo(),
+
       },
       home: Stack(
         children: const [
