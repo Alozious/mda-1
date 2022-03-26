@@ -40,7 +40,7 @@ class _MainAppState extends State<MainApp> {
         "home": (context) => const HomePage(),
         "terms": (context) => const Terms(),
         "faqspage": (context) => const Faq(),
-        "foodfacts": (context) => const Homepagee(),
+        "foodfacts": (context) => const Foodfactspage(),
 
     
         "tip": (context) => Tip(randIndex: randIndex),

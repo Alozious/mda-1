@@ -19,8 +19,8 @@ class Foodcardcontet {
       required this.typedetailspage});
 }
 
-class Homepagebody extends StatelessWidget {
-  const Homepagebody({Key? key}) : super(key: key);
+class Foodfactspagebody extends StatelessWidget {
+  const Foodfactspagebody({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return FoodRow(fooddetail[0]);
@@ -158,14 +158,14 @@ class FoodRow extends StatelessWidget {
   }
 }
 
-class Homepagee extends StatefulWidget {
-  const Homepagee({Key? key}) : super(key: key);
+class Foodfactspage extends StatefulWidget {
+  const Foodfactspage({Key? key}) : super(key: key);
 
   @override
-  _Homepagee createState() => _Homepagee();
+  _Foodfactspage createState() => _Foodfactspage();
 }
 
-class _Homepagee extends State<Homepagee> {
+class _Foodfactspage extends State<Foodfactspage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
