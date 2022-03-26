@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:mda/searchpage.dart';
 
@@ -43,7 +41,7 @@ class _FaqState extends State<Faq> {
           // Navigate to the Search Screen
           IconButton(
               onPressed: () => Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => SearchPage())),
+                  .push(MaterialPageRoute(builder: (_) => const SearchPage())),
               icon: const Icon(Icons.search))
         ],
       ),

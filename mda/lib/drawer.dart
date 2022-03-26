@@ -1,6 +1,5 @@
-import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:mda/homepage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -21,7 +20,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(left: 6),
-        color: Color.fromARGB(216, 165, 253, 253),
+        color: const Color.fromARGB(110, 165, 253, 253),
         child: Center(
           child: ListView(
             children: [
@@ -64,7 +63,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       letterSpacing: 1.5,
                     )),
                 onTap: () {
-                  print("THE HOME BUTTON HAS BEEN CLICKED");
+                  
                 },
               ),
 
@@ -76,14 +75,14 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   color: Colors.black,
                 ),
                 title: const Text(
-                  "Info",
+                  "Food Facts",
                   style: TextStyle(
                     fontSize: 19,
                     color: Colors.black,
                   ),
                 ),
                 onTap: () {
-                  Navigator.pushNamed(context, "info");
+                  Navigator.pushNamed(context, "foodfacts");
                 },
               ),
 
