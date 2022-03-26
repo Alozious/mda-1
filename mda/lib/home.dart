@@ -8,8 +8,39 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   static const int pink = 0xFFeb406a;
+  late Animation _animation;
+  late AnimationController _animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 4),
+    );
+
+    _animation =
+        Tween<double>(begin: 0.0, end: 55.0).animate(_animationController);
+
+    // adding a listener to listen for changes in the animation value
+    _animation.addListener(() {
+      setState(() {
+        print(_animation.value);
+      });
+    });
+
+    // starting the animation and making it repeat
+    _animationController.forward();
+  }
+
+// disposing off the animation controller
+  @override
+  void dispose() {
+    super.dispose();
+    _animationController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +63,10 @@ class _HomeState extends State<Home> {
                     const Text(
                       "Welcome To Malnutrition Digital Assistant",
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 21, color: Colors.white),
+                      style: TextStyle(
+                          fontSize: 21,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 30,
@@ -48,6 +82,8 @@ class _HomeState extends State<Home> {
                           width: 5,
                         ),
                         Container(
+                          height: _animation.value,
+                          width: _animation.value,
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                               color: Colors.black,
@@ -70,7 +106,8 @@ class _HomeState extends State<Home> {
                       padding: EdgeInsets.only(top: 10),
                       child: Text(
                         "Diagnosis",
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     )
                   ],
@@ -78,7 +115,31 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 15),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Articles",
+                  style: TextStyle(
+                      fontSize: 21,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                ),
+                TextButton(
+                  onPressed: () {
+                    print("SEE ALL CLICKED");
+                  },
+                  child: const Text(
+                    "See All",
+                    style: TextStyle(fontSize: 18, color: Colors.pink),
+                  ),
+                ),
+              ],
+            ),
+          ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
@@ -194,7 +255,7 @@ class _HomeState extends State<Home> {
                           "MALNUTRITION DIGITAL ASSISTANT",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                              color: Colors.white, fontWeight: FontWeight.w100),
                         )),
                       )),
                 ),
