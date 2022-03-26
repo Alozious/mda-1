@@ -143,8 +143,10 @@ class _TipState extends State<Tip> {
                                         return const Text(
                                             "Error Processing File");
                                       } else {
-                                        return const Text(
-                                            'Loading Please wait');
+                                        return const Center(
+                                          child: Text(
+                                              'Loading Please wait'),
+                                        );
                                       }
                                     },
                                   ),

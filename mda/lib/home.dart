@@ -22,7 +22,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     );
 
     _animation =
-        Tween<double>(begin: 0.0, end: 55.0).animate(_animationController);
+        Tween<double>(begin: 0.0, end: 50.0).animate(_animationController);
 
     // adding a listener to listen for changes in the animation value
     _animation.addListener(() {

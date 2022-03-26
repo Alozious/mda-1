@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mda/vegetablespage.dart';
 import 'package:mda/fruitspage.dart';
 
+// CLASS TO CONTAIN FOOD ITEM DETAILS
 class Foodcardcontet {
   String id;
   String name;
@@ -19,118 +20,134 @@ class Foodcardcontet {
       required this.typedetailspage});
 }
 
-class Foodfactspagebody extends StatelessWidget {
-  const Foodfactspagebody({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return FoodRow(fooddetail[0]);
-  }
-}
+// ARRAY OF FOOD ITEMS
+List<Foodcardcontet> fooddetail = [
+  Foodcardcontet(
+    id: "1",
+    name: "Vegetables",
+    percentage: "75%",
+    description: "Lorem Kusha...",
+    image: "assets/images/vegetables.jpg",
+    typedetailspage: "vegetablespage",
+  ),
+  Foodcardcontet(
+    id: "1",
+    name: "Fruits",
+    percentage: "17%",
+    description: "Lorem ipsum...",
+    image: "assets/images/fruits.jpg",
+    typedetailspage: "fruitspage",
+  ),
+  Foodcardcontet(
+    id: "1",
+    name: "Mars",
+    percentage: "15%",
+    description: "Lorem ipsum...",
+    image: "assets/images/vegetables.jpg",
+    typedetailspage: "vegetablespage",
+  ),
+  Foodcardcontet(
+    id: "1",
+    name: "Mars",
+    percentage: "15%",
+    description: "Lorem ipsum...",
+    image: "assets/images/vegetables.jpg",
+    typedetailspage: "vegetablespage",
+  ),
+  Foodcardcontet(
+    id: "1",
+    name: "Mars",
+    percentage: "15%",
+    description: "Lorem ipsum...",
+    image: "assets/images/vegetables.jpg",
+    typedetailspage: "vegetablespage",
+  ),
+];
 
 class FoodRow extends StatelessWidget {
   const FoodRow(this.fooddetail, {Key? key}) : super(key: key);
+
   final Foodcardcontet fooddetail;
 
   @override
   Widget build(BuildContext context) {
-    var foodTexts = Container(
-      height: 150.0,
-      margin: const EdgeInsets.only(left: 46.0),
-      decoration: BoxDecoration(
-        color: const Color(0xff00c6ff),
-        shape: BoxShape.rectangle,
-        borderRadius: BorderRadius.circular(8.0),
-        boxShadow: const <BoxShadow>[
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 10.0,
-            offset: Offset(0.0, 10.0),
-          ),
-        ],
-      ),
+    var foodTexts = GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, fooddetail.typedetailspage);
+      },
       child: Container(
-        margin: const EdgeInsets.fromLTRB(76.0, 16.0, 16.0, 16.0),
-        constraints: const BoxConstraints.expand(),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 0)),
-
-            Expanded(
-                child: Column(
-              children: <Widget>[
-                Container(height: 4.0),
-                Text(
-                  fooddetail.name,
-                  style: const TextStyle(
-                    color: Color.fromARGB(186, 1, 6, 71),
-                    fontSize: 30,
-                    letterSpacing: 0.3,
-                  ),
-                ),
-                Container(height: 3.0),
-                Text(
-                  fooddetail.description,
-                  style: const TextStyle(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      fontSize: 15,
-                      letterSpacing: 0.3,
-                      height: 1.3),
-                ),
-              ],
-            )),
-
-            Expanded(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(75, 10.0, 0.0, 3.0),
-                    child: Container(
-                      child: CircleAvatar(
-                          backgroundColor: Color.fromARGB(255, 198, 247, 253),
-                          radius: 30,
-                          child: Text(
-                            fooddetail.percentage,
-                            style: const TextStyle(
-                                color: Color.fromARGB(255, 214, 15, 81),
-                                fontSize: 20,
-                                letterSpacing: 0.3,
-                                height: 1.3),
-                          )),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(70, 15.0, 0.0, 0.0),
-                    child: OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        side: const BorderSide(
-                            color: Color.fromARGB(255, 218, 233, 8), width: 2),
-                        backgroundColor: Colors.blue,
-                        primary: Colors.white,
-                        shadowColor: Colors.red,
-                        elevation: 03,
-                      ),
-                      onPressed: () {
-                        Navigator.pushNamed(context, fooddetail.typedetailspage);
-                      },
-                      child: const Text("More..."),
-                    ),
-                  )
-                ],
-              ),
-            )
-            //margin: const EdgeInsets.symmetric(vertical: 8.0),
-            //height: 3.0,
-            //width: 40.0,
-            //color: Color.fromARGB(255, 218, 233, 8),
-
-            //Container(
-            // ),
+        // Box Containing the food item
+        height: 150.0,
+        margin: const EdgeInsets.only(left: 46.0),
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(148, 0, 200, 255),
+          borderRadius: BorderRadius.circular(8.0),
+          boxShadow: const <BoxShadow>[
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 10.0,
+              offset: Offset(0.0, 10.0),
+            ),
           ],
+        ),
+        child: Container(
+          margin: const EdgeInsets.fromLTRB(50.0, 5.0, 16.0, 10.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      fooddetail.name,
+                      style: const TextStyle(
+                        color: Color.fromARGB(186, 1, 6, 71),
+                        fontSize: 28,
+                        letterSpacing: 0.3,
+                      ),
+                    ),
+                    Container(height: 9.0),
+                    Text(
+                      fooddetail.description,
+                      style: const TextStyle(
+                          color: Color.fromARGB(255, 0, 0, 0),
+                          fontSize: 15,
+                          letterSpacing: 0.3,
+                          height: 1.3),
+                    ),
+                  ],
+                ),
+              ),
+
+              CircleAvatar(
+                backgroundColor: const Color.fromARGB(255, 226, 243, 245),
+                radius: 30,
+                child: Text(
+                  fooddetail.percentage,
+                  style: const TextStyle(
+                    color: Color.fromARGB(255, 214, 15, 81),
+                    fontSize: 20,
+                    letterSpacing: 0.3,
+                    height: 1.3,
+                  ),
+                ),
+              ),
+              //margin: const EdgeInsets.symmetric(vertical: 8.0),
+              //height: 3.0,
+              //width: 40.0,
+              //color: Color.fromARGB(255, 218, 233, 8),
+
+              //Container(
+              // ),
+            ],
+          ),
         ),
       ),
     );
 
+
+    // The Picture on the side of the card
     var foodpic = Container(
       margin: const EdgeInsets.symmetric(vertical: 16.0),
       alignment: FractionalOffset.centerLeft,
@@ -186,47 +203,3 @@ class _Foodfactspage extends State<Foodfactspage> {
     );
   }
 }
-
-List<Foodcardcontet> fooddetail = [
-  Foodcardcontet(
-    id: "1",
-    name: "Vegetables",
-    percentage: "15%",
-    description: "Lorem ipsum...",
-    image: "assets/images/vegetables.jpg",
-    typedetailspage: "vegetablespage",
-
-  ),
-  Foodcardcontet(
-    id: "1",
-    name: "Fruits",
-    percentage: "15%",
-    description: "Lorem ipsum...",
-    image: "assets/images/fruits.jpg",
-    typedetailspage:"fruitspage",
-  ),
-  Foodcardcontet(
-    id: "1",
-    name: "Mars",
-    percentage: "15%",
-    description: "Lorem ipsum...",
-    image: "assets/images/vegetables.jpg",
-    typedetailspage:"vegetablespage",
-  ),
-  Foodcardcontet(
-    id: "1",
-    name: "Mars",
-    percentage: "15%",
-    description: "Lorem ipsum...",
-    image: "assets/images/vegetables.jpg",
-    typedetailspage:"vegetablespage",
-  ),
-  Foodcardcontet(
-    id: "1",
-    name: "Mars",
-    percentage: "15%",
-    description: "Lorem ipsum...",
-    image: "assets/images/vegetables.jpg",
-    typedetailspage:"vegetablespage",
-  ),
-];
