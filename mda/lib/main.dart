@@ -7,6 +7,8 @@ import 'package:mda/faqspage.dart';
 import 'package:mda/foodfacts.dart';
 import 'package:mda/fruitspage.dart';
 import 'package:mda/homepage.dart';
+import 'package:mda/login.dart';
+import 'package:mda/signup.dart';
 import 'package:mda/terms.dart';
 import 'package:mda/tip.dart';
 import 'package:mda/vegetablespage.dart';
@@ -41,6 +43,8 @@ class _MainAppState extends State<MainApp> {
         "terms": (context) => const Terms(),
         "faqspage": (context) => const Faq(),
         "foodfacts": (context) => const Foodfactspage(),
+        "login": (context) => const Login(),
+        "signup": (context) => const Signup(),
 
     
         "tip": (context) => Tip(randIndex: randIndex),
