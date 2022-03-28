@@ -117,7 +117,8 @@ class _TipState extends State<Tip> {
                                     builder: (context, snapshot) {
                                       Future.delayed(Duration.zero, (() {
                                         setState(() {
-                                          textShared = snapshot.data!.docs[widget.randIndex]["tip"];
+                                          textShared = snapshot.data!
+                                              .docs[widget.randIndex]["tip"];
                                         });
                                       }));
                                       // Checking if data has been returned from the database
@@ -141,11 +142,15 @@ class _TipState extends State<Tip> {
                                         );
                                       } else if (snapshot.hasError) {
                                         return const Text(
-                                            "Error Processing File");
+                                            "Error Processing Request, Please try again");
                                       } else {
                                         return const Center(
-                                          child: Text(
-                                              'Loading Please wait'),
+                                          child: CircularProgressIndicator(
+                                            color: Color.fromARGB(
+                                                207, 233, 30, 98),
+                                            backgroundColor: Colors.white,
+                                            strokeWidth: 5,
+                                          ),
                                         );
                                       }
                                     },

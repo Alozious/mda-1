@@ -120,6 +120,7 @@ class FoodRow extends StatelessWidget {
                 ),
               ),
 
+              // PERCENTAGE CIRCLE
               CircleAvatar(
                 backgroundColor: const Color.fromARGB(255, 226, 243, 245),
                 radius: 30,
@@ -128,8 +129,8 @@ class FoodRow extends StatelessWidget {
                   style: const TextStyle(
                     color: Color.fromARGB(255, 214, 15, 81),
                     fontSize: 20,
+                    fontWeight: FontWeight.bold,
                     letterSpacing: 0.3,
-                    height: 1.3,
                   ),
                 ),
               ),
@@ -145,7 +146,6 @@ class FoodRow extends StatelessWidget {
         ),
       ),
     );
-
 
     // The Picture on the side of the card
     var foodpic = Container(
