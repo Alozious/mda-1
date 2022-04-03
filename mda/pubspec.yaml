@@ -1,5 +1,5 @@
 name: mda
-description: A new Flutter project.
+description: A Flutter Application that Uses Artificial Intelligence to Help in Malnutrition Diagnosis.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -40,6 +40,7 @@ dependencies:
   firebase_core: ^1.13.1
   cloud_firestore: ^3.1.10
   passwordfield: ^0.1.0
+
 
   
 dev_dependencies:
