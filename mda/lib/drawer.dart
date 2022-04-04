@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mda/profile_page.dart';
 import 'package:share_plus/share_plus.dart';
 
 class DrawerScreen extends StatefulWidget {
@@ -101,7 +102,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.pushNamed(context, "ai");
+                  Navigator.pushNamed(context, "profile");
+
                 },
               ),
 
