@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mda/drawer.dart';
+import 'package:mda/home.dart';
 import 'package:mda/results.dart';
-
-void main(List<String> args) {
-  runApp(HomePage());
-}
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -26,10 +23,76 @@ class _HomePageState extends State<HomePage> {
   Color? activeColor = Colors.white;
   Color? inactiveColor = Colors.black;
   final ImagePicker _picker = ImagePicker();
-  late String pickedImagePath;
+  String pickedImagePath = "";
+  bool imagePicked = false;
+
+  _popupDialog(BuildContext context) {
+    return AlertDialog(
+        title: const Text(
+          "SELECT IMAGE SOURCE",
+          style: TextStyle(fontSize: 19),
+        ),
+        content: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // PICKING IMAGE FROM CAMERA
+            ListTile(
+              title: const Text("Pick From Camera"),
+              leading: const Icon(
+                FontAwesomeIcons.camera,
+                color: Colors.pink,
+              ),
+              onTap: () async {
+                final XFile? image =
+                    await _picker.pickImage(source: ImageSource.camera);
+                // printing the image path
+                print(image!.path);
+                setState(() {
+                  pickedImagePath = image.path;
+                  isHome = false;
+                  imagePicked = true;
+                });
+
+                Navigator.pop(context);
+              },
+            ),
+
+            // PICKING IMAGE FROM GALLERY
+            ListTile(
+              title: const Text("Pick From Gallery"),
+              leading: const Icon(
+                FontAwesomeIcons.image,
+                color: Colors.pink,
+              ),
+              onTap: () async {
+                final XFile? image =
+                    await _picker.pickImage(source: ImageSource.gallery);
+                // printing the image path
+                print(image!.path);
+                setState(() {
+                  pickedImagePath = image.path;
+                  isHome = false;
+                  imagePicked = true;
+                });
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ));
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (pickedImagePath == "") {
+      setState(() {
+        imagePicked = false;
+      });
+    } else {
+      setState(() {
+        imagePicked = true;
+      });
+    }
     return GestureDetector(
       onTap: drawerOpen
           ? () {
@@ -53,7 +116,9 @@ class _HomePageState extends State<HomePage> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(radius),
             child: Scaffold(
+              // APPBAR
               appBar: AppBar(
+                elevation: 0,
                 backgroundColor: const Color(pink),
                 title: const Text("Malnutrition Digital Assistant"),
                 leading: drawerOpen
@@ -89,12 +154,34 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               body: isHome
-                  ? const Center(
-                      child: Text("HOMEPAGE"),
-                    )
-                  : Results(
-                      imgPath: pickedImagePath,
-                    ),
+                  ? const Home()
+                  : imagePicked
+                      ? Results(
+                          imgPath: pickedImagePath,
+                        )
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Center(
+                              child: Text(
+                                "NO IMAGE SELECTED",
+                                style: TextStyle(fontSize: 22),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 40,
+                            ),
+                            Center(
+                              child: Text(
+                                "Click Button Below To Select An Image",
+                                style: TextStyle(fontSize: 17),
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            Icon(FontAwesomeIcons.arrowDown),
+                            Icon(FontAwesomeIcons.arrowDown),
+                          ],
+                        ),
 
               // BOTTOM NAVIGATION BAR
               bottomNavigationBar: BottomAppBar(
@@ -150,7 +237,7 @@ class _HomePageState extends State<HomePage> {
                                     isHome = false;
                                   });
                                 },
-                                icon: const Icon(FontAwesomeIcons.bars)),
+                                icon: const Icon(FontAwesomeIcons.binoculars)),
                             Text(
                               "RESULTS",
                               style: TextStyle(
@@ -168,16 +255,9 @@ class _HomePageState extends State<HomePage> {
               floatingActionButton: FloatingActionButton(
                 backgroundColor: Colors.black,
                 onPressed: () async {
-                  final XFile? image =
-                      await _picker.pickImage(source: ImageSource.gallery);
-
-                  // printing the image path
-                  print(image!.path);
-
-                  setState(() {
-                    pickedImagePath = image.path;
-                    isHome = false;
-                  });
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) => _popupDialog(context));
                 },
                 child: const Icon(FontAwesomeIcons.camera),
               ),

@@ -1,7 +1,8 @@
+
 import 'package:flutter/material.dart';
-import 'package:mda/homepage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mda/profile_page.dart';
+import 'package:share_plus/share_plus.dart';
 
 class DrawerScreen extends StatefulWidget {
   const DrawerScreen({Key? key}) : super(key: key);
@@ -11,17 +12,21 @@ class DrawerScreen extends StatefulWidget {
 }
 
 class _DrawerScreenState extends State<DrawerScreen> {
+  shareTheApp() async {
+    await Share.share("Malnutrition Digital Assistant");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(left: 6),
-        color: Colors.white,
+        color: const Color.fromARGB(110, 165, 253, 253),
         child: Center(
           child: ListView(
             children: [
               Container(
-                margin: const EdgeInsets.only(top: 15, left: 15),
+                margin: const EdgeInsets.only(top: 20, left: 15),
                 child: const Text(
                   "MDA",
                   style: TextStyle(
@@ -46,7 +51,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 height: 90,
               ),
               ListTile(
-                selectedTileColor: Colors.black,
                 leading: const Icon(
                   FontAwesomeIcons.home,
                   size: 30,
@@ -59,7 +63,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       fontWeight: FontWeight.w900,
                       letterSpacing: 1.5,
                     )),
-                onTap: () {},
+                onTap: () {
+                  
+                },
               ),
 
               // INFO TILE
@@ -70,14 +76,14 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   color: Colors.black,
                 ),
                 title: const Text(
-                  "Info",
+                  "Food Facts",
                   style: TextStyle(
                     fontSize: 19,
                     color: Colors.black,
                   ),
                 ),
                 onTap: () {
-                  Navigator.pushNamed(context, "info");
+                  Navigator.pushNamed(context, "foodfacts");
                 },
               ),
 
@@ -97,6 +103,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 ),
                 onTap: () {
                   Navigator.pushNamed(context, "profile");
+
                 },
               ),
 
@@ -115,7 +122,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.pushNamed(context, "faq");
+                  Navigator.pushNamed(context, "faqspage");
                 },
               ),
 
@@ -134,7 +141,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.pushNamed(context, "terms");
+                  Navigator.pushNamed(context, "contact");
                 },
               ),
 
@@ -153,7 +160,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.pushNamed(context, "share");
+                  shareTheApp();
                 },
               ),
 
