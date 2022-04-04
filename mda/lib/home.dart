@@ -84,8 +84,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          "Click The Camera Icon ",
-                          style: TextStyle(color: Colors.white),
+                          "Click The Camera ",
+                          style: TextStyle(color: Colors.white, fontSize: 18),
                         ),
                         const SizedBox(
                           width: 5,
@@ -106,17 +106,19 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                           width: 5,
                         ),
                         const Text(
-                          "At The Bottom To Start",
-                          style: TextStyle(color: Colors.white),
+                          "Icon At The Bottom",
+                          style: TextStyle(color: Colors.white, fontSize: 18),
                         )
                       ],
                     ),
                     const Padding(
                       padding: EdgeInsets.only(top: 10),
                       child: Text(
-                        "Diagnosis",
+                        "To Start Diagnosis",
                         style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
                       ),
                     )
                   ],
