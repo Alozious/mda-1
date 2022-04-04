@@ -50,6 +50,15 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           Container(
             height: 260,
             decoration: const BoxDecoration(
+                // gradient: LinearGradient(
+                //   begin: Alignment.bottomLeft,
+                //   end: Alignment.topRight,
+                //   colors: [
+                //     Color(pink),
+                //     Colors.pink,
+                //     Colors.black,
+                //   ],
+                // ),
                 color: Color(pink),
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(40),
