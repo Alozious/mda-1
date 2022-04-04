@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mda/homepage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mda/profile_page.dart';
 
 class DrawerScreen extends StatefulWidget {
   const DrawerScreen({Key? key}) : super(key: key);
@@ -95,7 +96,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.pushNamed(context, "doctor");
+                  Navigator.pushNamed(context, "profile");
                 },
               ),
 
