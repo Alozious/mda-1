@@ -12,6 +12,7 @@ import 'package:mda/terms.dart';
 import 'package:mda/tip.dart';
 import 'package:mda/vegetablespage.dart';
 import 'drawer.dart';
+import 'package:mda/profile_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main(List<String> args) async {
@@ -19,7 +20,6 @@ Future<void> main(List<String> args) async {
   runApp(const MainApp());
 }
 
-// aloyzious comments
 class MainApp extends StatefulWidget {
   const MainApp({Key? key}) : super(key: key);
 
@@ -34,8 +34,15 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+  
+          theme: ThemeData(
+          primaryColor: Colors.black,
+          dividerColor: Colors.pink,
+        ),
+  
       routes: {
         "drawer": (context) => const DrawerScreen(),
         "home": (context) => const HomePage(),
@@ -44,12 +51,9 @@ class _MainAppState extends State<MainApp> {
         "foodfacts": (context) => const Foodfactspage(),
         "login": (context) => const Login(),
         "signup": (context) => const Signup(),
-
-    
+        "profile": (context) => const Profile(),
         "tip": (context) => Tip(randIndex: randIndex),
         "contact": (context) => const Contact(),
-
-//foodfact routes
          "vegetablespage": (context) => const Vegetablesinfo(),
          "fruitspage": (context) => const Fruitsinfo(),
 
