@@ -25,38 +25,40 @@ List<Foodcardcontet> fooddetail = [
   Foodcardcontet(
     id: "1",
     name: "Vegetables",
-    percentage: "75%",
-    description: "Lorem Kusha...",
+    percentage: "31%",
+    description:
+        "They provide essential vitamins, minerals, and other nutrients.",
     image: "assets/images/vegetables.jpg",
     typedetailspage: "vegetablespage",
   ),
   Foodcardcontet(
     id: "1",
     name: "Fruits",
-    percentage: "17%",
-    description: "Lorem ipsum...",
-    image: "assets/images/fruits.jpg",
+    percentage: "27%",
+    description: "Fruits are fabulous foods, nutrient-rich inexpensive....",
+    image: "assets/images/fruit.jpg",
     typedetailspage: "fruitspage",
   ),
   Foodcardcontet(
     id: "1",
-    name: "Mars",
-    percentage: "15%",
-    description: "Lorem ipsum...",
-    image: "assets/images/vegetables.jpg",
+    name: "Amimal Foods",
+    percentage: "34%",
+    description: "These contain high levels of minerals important for growth",
+    image: "assets/images/egg.jpg",
     typedetailspage: "vegetablespage",
   ),
   Foodcardcontet(
     id: "1",
-    name: "Mars",
-    percentage: "15%",
-    description: "Lorem ipsum...",
-    image: "assets/images/vegetables.jpg",
+    name: " Legumes",
+    percentage: "26%",
+    description:
+        "Rich in protein, fiber, B vitamins, iron, folate, calcium, potassium, phosphorus, and zinc",
+    image: "assets/images/legumes.webp",
     typedetailspage: "vegetablespage",
   ),
   Foodcardcontet(
     id: "1",
-    name: "Mars",
+    name: "Roots",
     percentage: "15%",
     description: "Lorem ipsum...",
     image: "assets/images/vegetables.jpg",
@@ -64,23 +66,36 @@ List<Foodcardcontet> fooddetail = [
   ),
 ];
 
-class FoodRow extends StatelessWidget {
+class FoodRow extends StatefulWidget {
   const FoodRow(this.fooddetail, {Key? key}) : super(key: key);
 
   final Foodcardcontet fooddetail;
 
   @override
+  State<FoodRow> createState() => _FoodRowState();
+}
+
+class _FoodRowState extends State<FoodRow> {
+  @override
   Widget build(BuildContext context) {
     var foodTexts = GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, fooddetail.typedetailspage);
+        Navigator.pushNamed(context, widget.fooddetail.typedetailspage);
       },
       child: Container(
         // Box Containing the food item
         height: 150.0,
         margin: const EdgeInsets.only(left: 46.0),
         decoration: BoxDecoration(
-          color: const Color.fromARGB(148, 0, 200, 255),
+          gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                // Colors.pink,
+                Colors.white,
+                Colors.cyan,
+              ]),
+          // color: Color.fromARGB(147, 204, 80, 188),
           borderRadius: BorderRadius.circular(8.0),
           boxShadow: const <BoxShadow>[
             BoxShadow(
@@ -100,21 +115,27 @@ class FoodRow extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      fooddetail.name,
+                      widget.fooddetail.name,
                       style: const TextStyle(
-                        color: Color.fromARGB(186, 1, 6, 71),
-                        fontSize: 28,
+                        color: Colors.pink,
+                        fontSize: 26,
                         letterSpacing: 0.3,
+                        fontWeight: FontWeight.bold,
                       ),
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.clip,
                     ),
                     Container(height: 9.0),
                     Text(
-                      fooddetail.description,
+                      widget.fooddetail.description,
                       style: const TextStyle(
-                          color: Color.fromARGB(255, 0, 0, 0),
-                          fontSize: 15,
-                          letterSpacing: 0.3,
-                          height: 1.3),
+                        color: Color.fromARGB(255, 0, 0, 0),
+                        fontSize: 15,
+                        letterSpacing: 0.3,
+                        height: 1.2,
+                      ),
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.fade,
                     ),
                   ],
                 ),
@@ -125,7 +146,7 @@ class FoodRow extends StatelessWidget {
                 backgroundColor: const Color.fromARGB(255, 226, 243, 245),
                 radius: 30,
                 child: Text(
-                  fooddetail.percentage,
+                  widget.fooddetail.percentage,
                   style: const TextStyle(
                     color: Color.fromARGB(255, 214, 15, 81),
                     fontSize: 20,
@@ -149,14 +170,14 @@ class FoodRow extends StatelessWidget {
 
     // The Picture on the side of the card
     var foodpic = Container(
-      margin: const EdgeInsets.symmetric(vertical: 16.0),
+      margin: const EdgeInsets.symmetric(vertical: 26.0),
       alignment: FractionalOffset.centerLeft,
       height: 92.0,
       width: 92.0,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         image: DecorationImage(
-            image: AssetImage(fooddetail.image), fit: BoxFit.fitHeight),
+            image: AssetImage(widget.fooddetail.image), fit: BoxFit.fitHeight),
       ),
     );
 
