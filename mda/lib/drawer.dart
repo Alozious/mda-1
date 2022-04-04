@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mda/profile_page.dart';
@@ -63,9 +62,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       fontWeight: FontWeight.w900,
                       letterSpacing: 1.5,
                     )),
-                onTap: () {
-                  
-                },
+                onTap: () {},
               ),
 
               // INFO TILE
@@ -103,7 +100,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 ),
                 onTap: () {
                   Navigator.pushNamed(context, "profile");
-
                 },
               ),
 
@@ -183,7 +179,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.pushNamed(context, "signup");
+                  Navigator.pushNamed(context, "tip");
                 },
               ),
 
